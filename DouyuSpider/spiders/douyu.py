@@ -5,7 +5,7 @@ from DouyuSpider.items import DouyuspiderItem
 
 class DouyuSpider(scrapy.Spider):
     name = 'douyu'
-    allowed_domains = ['www.douyu.com']
+    allowed_domains = ['www.douyu.com', 'rpic.douyucdn.cn', 'staticlive.douyucdn.cn']
 
     base_url = "https://www.douyu.com/api/v1/getVerticalRoom?limit=20&offset="
     offset = 0

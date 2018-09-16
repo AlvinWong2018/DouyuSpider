@@ -7,6 +7,7 @@
 import os
 
 import scrapy
+from scrapy.exceptions import DropItem
 from scrapy.pipelines.images import ImagesPipeline
 from DouyuSpider.settings import IMAGES_STORE as images_store
 
@@ -20,6 +21,10 @@ class DouyuspiderPipeline(ImagesPipeline):
     #     return item
 
     def item_completed(self, results, item, info):
+
         image_path = [x['path'] for ok, x in results if ok]
-        os.rename(images_store+image_path[0], images_store+item['nickname']+".jpg")
+        if not image_path:
+            raise DropItem("Item contains no images")
+        else:
+            os.rename(images_store+image_path[0], images_store+item['nickname']+".jpg")
 
